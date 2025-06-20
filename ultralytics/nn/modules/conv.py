@@ -22,6 +22,7 @@ __all__ = (
     "CBAM",
     "Concat",
     "RepConv",
+    "ConvMaxPool",
     "Index",
 )
 
@@ -536,6 +537,20 @@ class RepConv(nn.Module):
             self.__delattr__("bn")
         if hasattr(self, "id_tensor"):
             self.__delattr__("id_tensor")
+
+
+class ConvMaxPool(nn.Module):  
+    def __init__(self, c1, c2):  # ch_in, ch_out  
+        super().__init__()  
+        self.conv= nn.Sequential(
+            nn.Conv2d(c1, c2, kernel_size=3, stride=2, padding=1, bias=False),
+            nn.BatchNorm2d(c2),
+            nn.ReLU(inplace=True),
+        )
+        self.maxpool = nn.MaxPool2d(kernel_size=3, stride=2, padding=1, dilation=1, ceil_mode=False)
+
+    def forward(self, x):  
+        return self.maxpool(self.conv(x))
 
 
 class ChannelAttention(nn.Module):

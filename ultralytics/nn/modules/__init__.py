@@ -58,6 +58,7 @@ from .block import (
     RepVGGDW,
     ResNetLayer,
     SCDown,
+    ShuffleNetV2_InvertedResidual,
     TorchVision,
 )
 from .conv import (
@@ -66,6 +67,7 @@ from .conv import (
     Concat,
     Conv,
     Conv2,
+    ConvMaxPool,
     ConvTranspose,
     DWConv,
     DWConvTranspose2d,
